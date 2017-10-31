@@ -103,8 +103,72 @@ public class Colosseum {
      *         <p>
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        Pokemon myPokemon = new Pokemon();
+        myScan = new Scanner(System.in);
+
+        System.out.println("What is your Pokemon type: " + "\n1) Electric"
+                + "\n2) Fire \n3) Water");
+        String type = myScan.nextLine();
+
+        if (type.equals("1")) {
+            myPokemon = new ElectricPokemon();
+        } else if (type.equals("2")) {
+            myPokemon = new FirePokemon();
+        } else {
+            myPokemon = new WaterPokemon();
+        }
+
+        System.out.println("Name your Pokemon: ");
+        myPokemon.setName(myScan.nextLine());
+
+        boolean isValid = false;
+        while (!isValid) {
+            System.out.println("How many hit points will it have? (1-50)");
+            int hitPoints = myScan.nextInt();
+
+            if (hitPoints >= 1 && hitPoints <= 50) {
+                myPokemon.setHitPoints(hitPoints);
+                isValid = true;
+            } else {
+                System.out.println("Your input is invalid. Please enter an "
+                        + "integer between 1 and 50.");
+            }
+        }
+
+
+        System.out.println("Split 50 pts between attack & defense levels.");
+        System.out.println("Enter your attack level");
+        int attackLevel = myScan.nextInt();
+
+        isValid = false;
+        while (!isValid) {
+            if (attackLevel >= 1 && attackLevel <= 49) {
+                myPokemon.setAttackLevel(attackLevel);
+                isValid = true;
+            } else {
+                System.out.println("Your input is invalid. Please enter an "
+                        + "integer between 1 and 49.");
+            }
+
+        }
+
+        System.out.println("Enter your defense level.");
+        int defenseLevel = myScan.nextInt();
+
+        isValid = false;
+        while (!isValid) {
+            if (defenseLevel >= 1  && defenseLevel <= (50 - myPokemon.getAttackLevel())) {
+                myPokemon.setDefenseLevel(defenseLevel);
+                isValid = true;
+            } else {
+                System.out.println("Your input is invalid. Please enter an "
+                        + "integer between 1 and 49.");
+            }
+        }
+
+
+
+        return myPokemon;
     }
 
     /**
